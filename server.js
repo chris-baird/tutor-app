@@ -1,20 +1,23 @@
 // Requiring necessary npm packages
-const express = require("express");
-const path = require("path");
-const bodyParser = require("body-parser");
-const session = require("express-session");
+const express = require('express');
+const path = require('path');
+const bodyParser = require('body-parser');
+const session = require('express-session');
 // Requiring passport as we've configured it
-const passport = require("./config/passport");
-require("dotenv").config();
+const passport = require('./config/passport');
+require('dotenv').config();
 // Setting up port and requiring models for syncing
 const PORT = process.env.PORT || 8080;
-const db = require("./models");
+const db = require('./models');
 //
 // Creating express app and configuring middleware needed for authentication
 const app = express();
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('client/build'));
+}
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(express.static("public"));
+app.use(express.static('public'));
 // We need to use sessions to keep track of our user's login status
 app.use(
   session({ secret: process.env.SECRET, resave: true, saveUninitialized: true })
@@ -24,10 +27,10 @@ app.use(passport.session());
 //
 // Requiring our routes
 // require('./routes/html-routes.js')(app);
-require("./routes/api-routes.js")(app);
+require('./routes/api-routes.js')(app);
 
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "./client/build/index.html"));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, './client/build/index.html'));
 });
 //
 // Syncing our database and logging a message to the user upon success
@@ -36,7 +39,7 @@ db.sequelize
   .then(function() {
     app.listen(PORT, function() {
       console.log(
-        "==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.",
+        '==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.',
         PORT,
         PORT
       );
