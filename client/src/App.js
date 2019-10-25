@@ -12,6 +12,7 @@ import {
 } from 'react-router-dom';
 import LoginForm from './components/loginForm/LoginForm';
 import SignupForm from './components/signupForm/SignupForm';
+import HomePage from './components/homePage/HomePage';
 
 class App extends React.Component {
   constructor(props) {
@@ -70,22 +71,6 @@ class App extends React.Component {
       <div className="App">
         <Router>
           <div>
-            <nav>
-              <ul>
-                <li>
-                  <Link to="/">Home</Link>
-                </li>
-                <li>
-                  <Link to="/signin">Sign In</Link>
-                </li>
-                <li>
-                  <Link to="/signup">Sign Up</Link>
-                </li>
-              </ul>
-            </nav>
-
-            {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
             <Switch>
               <Route path="/dashboard">
                 {this.state.loggedIn ? (
@@ -105,7 +90,7 @@ class App extends React.Component {
                 <SignupForm handleSignUp={this.handleSignUp} />
               </Route>
               <Route path="/">
-                <h1>Home</h1>
+                <HomePage />
               </Route>
             </Switch>
           </div>
