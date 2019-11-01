@@ -21,16 +21,14 @@ class LoginForm extends Component {
   }
 
   handleLogIn({ email, password }) {
-    console.log(email, password);
     axios
       .post('/api/login', {
         email: email,
         password: password
       })
       .then(res => {
-        console.log(res.data);
         if (res.data) {
-          this.props.handleLogedIn();
+          this.props.handleLogedIn(res.data);
           this.props.history.push('/dashboard');
         }
         if (!res.data) this.setState({ message: 'Invalid email or password' });

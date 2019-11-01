@@ -13,12 +13,12 @@ import {
 import LoginForm from './components/loginForm/LoginForm';
 import SignupForm from './components/signupForm/SignupForm';
 import HomePage from './components/homePage/HomePage';
-
+import Dashboard from './components/dashboard/Dashboard';
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      loggedIn: false,
+      loggedIn: {},
       message: ''
     };
     this.handleLogedIn = this.handleLogedIn.bind(this);
@@ -31,8 +31,8 @@ class App extends React.Component {
     this.handleLogOut();
   }
 
-  handleLogedIn() {
-    this.setState({ loggedIn: true });
+  handleLogedIn(user) {
+    this.setState({ loggedIn: user });
   }
 
   handleSignUp(email, password) {
@@ -48,9 +48,7 @@ class App extends React.Component {
   handleGetInfo() {
     axios
       .get('/api/info')
-      .then(res => {
-        console.log(res.data);
-      })
+      .then(res => {})
       .catch(err => console.log(err));
   }
 
@@ -58,7 +56,6 @@ class App extends React.Component {
     axios
       .get('/logout')
       .then(res => {
-        console.log(res.data);
         this.setState({ loggedIn: false });
       })
       .catch(err => {
@@ -74,7 +71,7 @@ class App extends React.Component {
             <Switch>
               <Route path="/dashboard">
                 {this.state.loggedIn ? (
-                  <h1>dashboard</h1>
+                  <Dashboard user={this.state.loggedIn} />
                 ) : (
                   <Redirect
                     to={{
