@@ -58,6 +58,7 @@ class LoginForm extends Component {
           {() => (
             <Form className="form-block">
               <div className="form-group">
+                <label htmlFor="Email">Email</label>
                 <Field name="email" type="text" />
                 <ErrorMessage
                   name="email"
@@ -67,6 +68,7 @@ class LoginForm extends Component {
               </div>
 
               <div className="form-group">
+                <label htmlFor="password">Password</label>
                 <Field name="password" type="password" />
                 <ErrorMessage
                   name="password"
