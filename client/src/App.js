@@ -3,17 +3,25 @@ import logo from './logo.svg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  Redirect
+} from 'react-router-dom';
 import LoginForm from './components/loginForm/LoginForm';
 import SignupForm from './components/signupForm/SignupForm';
-
+import HomePage from './components/homePage/HomePage';
+import Dashboard from './components/dashboard/Dashboard';
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      loggedIn: false,
+      loggedIn: {},
       message: ''
     };
-    this.handleLogIn = this.handleLogIn.bind(this);
+    this.handleLogedIn = this.handleLogedIn.bind(this);
     this.handleSignUp = this.handleSignUp.bind(this);
     this.handleGetInfo = this.handleGetInfo.bind(this);
     this.handleLogOut = this.handleLogOut.bind(this);
@@ -22,22 +30,9 @@ class App extends React.Component {
   componentDidMount() {
     this.handleLogOut();
   }
-  handleLogIn(email, password) {
-    axios
-      .post('/api/login', {
-        email: email,
-        password: password
-      })
-      .then(res => {
-        console.log(res.data);
-        if (res.data) {
-          this.setState({ loggedIn: true });
-        }
-        if (!res.data) this.setState({ message: 'Invalid email or password' });
-      })
-      .catch(err => {
-        if (err) this.setState({ message: 'Invalid email or password' });
-      });
+
+  handleLogedIn(user) {
+    this.setState({ loggedIn: user });
   }
 
   handleSignUp(email, password) {
@@ -53,9 +48,7 @@ class App extends React.Component {
   handleGetInfo() {
     axios
       .get('/api/info')
-      .then(res => {
-        console.log(res.data);
-      })
+      .then(res => {})
       .catch(err => console.log(err));
   }
 
@@ -63,7 +56,6 @@ class App extends React.Component {
     axios
       .get('/logout')
       .then(res => {
-        console.log(res.data);
         this.setState({ loggedIn: false });
       })
       .catch(err => {
@@ -74,6 +66,34 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
+        <Router>
+          <div>
+            <Switch>
+              <Route path="/dashboard">
+                {this.state.loggedIn ? (
+                  <Dashboard user={this.state.loggedIn} />
+                ) : (
+                  <Redirect
+                    to={{
+                      pathname: '/signin'
+                    }}
+                  />
+                )}
+              </Route>
+              <Route path="/signin">
+                <LoginForm handleLogedIn={this.handleLogedIn} />
+              </Route>
+              <Route path="/signup">
+                <SignupForm handleSignUp={this.handleSignUp} />
+              </Route>
+              <Route path="/">
+                <HomePage />
+              </Route>
+            </Switch>
+          </div>
+        </Router>
+
+        {/* 
         {this.state.loggedIn ? (
           <h1>You are logged in</h1>
         ) : (
@@ -86,10 +106,7 @@ class App extends React.Component {
             <p>Sign Up</p>
             <SignupForm handleSignUp={this.handleSignUp} />
           </div>
-        )}
-        {/* <button onClick={this.handleLogIn}>Log In</button>
-        <button onClick={this.handleLogOut}>Log Out</button>
-        <button onClick={this.handleGetInfo}>Get info</button> */}
+        )} */}
       </div>
     );
   }
