@@ -53,6 +53,7 @@ class Dashboard extends Component {
             <AddStudentForm
               user={this.props.user}
               addStudent={this.handleAddStudent}
+              closeModal={this.handleModalToggle}
             />
           </ModalBody>
           <ModalFooter>

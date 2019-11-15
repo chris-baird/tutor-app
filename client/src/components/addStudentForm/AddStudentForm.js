@@ -36,6 +36,7 @@ class AddStudentForm extends Component {
               })
               .then(res => {
                 formikBag.resetForm();
+                this.props.closeModal();
                 this.props.addStudent(res.data);
               })
               .catch(err => console.log(err));
