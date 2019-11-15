@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import AddStudentForm from '../addStudentForm/AddStudentForm';
+import StudentCard from '../StudentCard/StudentCard';
 import axios from 'axios';
+import { Button } from 'reactstrap';
 
 class Dashboard extends Component {
   constructor(props) {
@@ -33,9 +35,13 @@ class Dashboard extends Component {
           user={this.props.user}
           addStudent={this.handleAddStudent}
         />
-        {this.state.students.map(student => (
-          <p key={student.id}>{student.firstName}</p>
-        ))}
+        <div className="row">
+          {this.state.students.map(student => (
+            <StudentCard
+              studentName={`${student.firstName} ${student.lastName}`}
+            />
+          ))}
+        </div>
       </div>
     );
   }
