@@ -31,11 +31,15 @@ class Dashboard extends Component {
     return (
       <div>
         <h1>Dashboard</h1>
-        <AddStudentForm
+        <hr />
+        <button className="btn btn-info m-1">Add Student</button>
+        <button className="btn btn-info m-1">Create Email</button>
+        <button className="btn btn-info m-1">Send Weekly Email</button>
+        {/* <AddStudentForm
           user={this.props.user}
           addStudent={this.handleAddStudent}
-        />
-        <div className="row">
+        /> */}
+        <div className="row mt-3">
           {this.state.students.map(student => (
             <StudentCard
               studentName={`${student.firstName} ${student.lastName}`}
