@@ -28,6 +28,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
+    // Comment thing back in to log out user if app closed
     this.handleLogOut();
   }
 
@@ -65,7 +66,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="App">
+      <div className="App container">
         <Router>
           <div>
             <Switch>

@@ -36,6 +36,7 @@ class AddStudentForm extends Component {
               })
               .then(res => {
                 formikBag.resetForm();
+                this.props.closeModal();
                 this.props.addStudent(res.data);
               })
               .catch(err => console.log(err));
@@ -44,7 +45,7 @@ class AddStudentForm extends Component {
           <Form>
             <div className="form-group">
               <label htmlFor="firstName">First Name</label>
-              <Field name="firstName" type="text" />
+              <Field name="firstName" type="text" className="form-control" />
               <ErrorMessage
                 name="firstName"
                 component="small"
@@ -53,7 +54,7 @@ class AddStudentForm extends Component {
             </div>
             <div className="form-group">
               <label htmlFor="lastName">Last Name</label>
-              <Field name="lastName" type="text" />
+              <Field name="lastName" type="text" className="form-control" />
               <ErrorMessage
                 name="lastName"
                 component="small"
@@ -62,7 +63,7 @@ class AddStudentForm extends Component {
             </div>
             <div className="form-group">
               <label htmlFor="email">Email</label>
-              <Field name="email" type="text" />
+              <Field name="email" type="text" className="form-control" />
               <ErrorMessage
                 name="email"
                 component="small"
@@ -71,7 +72,7 @@ class AddStudentForm extends Component {
             </div>
             <div className="form-group">
               <label htmlFor="timeZone">Time Zone</label>
-              <Field name="timeZone" type="text" />
+              <Field name="timeZone" type="text" className="form-control" />
               <ErrorMessage
                 name="timeZone"
                 component="small"
@@ -80,7 +81,7 @@ class AddStudentForm extends Component {
             </div>
             <div className="form-group">
               <label htmlFor="zoomLink">Zoom Link</label>
-              <Field name="zoomLink" type="text" />
+              <Field name="zoomLink" type="text" className="form-control" />
               <ErrorMessage
                 name="zoomLink"
                 component="small"
