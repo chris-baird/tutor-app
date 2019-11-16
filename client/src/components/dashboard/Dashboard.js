@@ -71,9 +71,7 @@ class Dashboard extends Component {
         /> */}
         <div className="row mt-3">
           {this.state.students.map(student => (
-            <StudentCard
-              studentName={`${student.firstName} ${student.lastName}`}
-            />
+            <StudentCard student={student} />
           ))}
         </div>
       </div>

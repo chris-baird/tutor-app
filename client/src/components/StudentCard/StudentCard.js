@@ -15,10 +15,10 @@ const StudentCard = props => {
   const toggle = () => setIsOpen(!isOpen);
 
   return (
-    <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+    <div className="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
       <Card>
         <CardBody>
-          <CardTitle>{props.studentName}</CardTitle>
+          <CardTitle>{`${props.student.firstName} ${props.student.lastName}`}</CardTitle>
           <CardSubtitle>
             <Button
               color="primary"
@@ -34,12 +34,12 @@ const StudentCard = props => {
 
           <Collapse isOpen={isOpen}>
             <Card>
-              <CardBody>
-                Anim pariatur cliche reprehenderit, enim eiusmod high life
-                accusamus terry richardson ad squid. Nihil anim keffiyeh
-                helvetica, craft beer labore wes anderson cred nesciunt sapiente
-                ea proident.
-              </CardBody>
+              <p>
+                Name: {`${props.student.firstName} ${props.student.lastName}`}
+              </p>
+              <p>Email: {props.student.email}</p>
+              <p>Time Zone: {props.student.timeZone}</p>
+              <p>Zoom Link: {props.student.zoomLink}</p>
             </Card>
           </Collapse>
         </CardBody>
